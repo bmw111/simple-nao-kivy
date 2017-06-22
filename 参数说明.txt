@@ -1,0 +1,6 @@
+参数：格式 xx+msg
+00 停止信号
+01 移动
+02 say 
+03 dance
+04 voice

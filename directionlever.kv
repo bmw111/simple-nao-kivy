@@ -1,0 +1,59 @@
+MyWidget:
+	orientation:'vertical'
+	canvas.before:
+		Color:
+			rgb:87/255.,94/255.,93/255.,1
+			#rgb:1,1,1,1
+		Rectangle:
+			source:'background.png'
+			size:root.size
+			pos:root.pos
+	ActionBar:
+		pos_hint: {'top':1}
+		size_hint_y: .2
+		ActionView:
+			use_separator: True
+			ActionPrevious:
+				title: 'NAO'
+				with_previous: False
+				app_icon:'icon.png'
+			ActionOverflow:
+			ActionButton:
+				#text: 'Btn0'
+				icon: 'atlas://data/images/defaulttheme/audio-volume-muted'	
+				on_press:root.voice('00')
+			ActionButton:
+				#text: 'Btn0'
+				icon: 'atlas://data/images/defaulttheme/audio-volume-low'
+				on_press:root.voice('01')
+			ActionButton:
+				#text: 'Btn0'
+				icon: 'atlas://data/images/defaulttheme/audio-volume-high'
+				on_press:root.voice('02')
+
+
+	BoxLayout:
+		
+	BoxLayout:
+		BoxLayout:
+			#size:root.height/2,root.width
+			#size_hint:.5,1
+			#orientation:'lr-bt'
+			MyDirectionlever:
+				#ball_r:20
+		BoxLayout:
+			orientation:'vertical'
+			BoxLayout:
+			BoxLayout:
+			BoxLayout:
+			#size_hint:.5,1
+				IconButton:
+					source:'button1.png'
+					on_press:root.say()
+				IconButton:
+					source:'button2.png'
+					on_press:root.dance()
+				IconButton:
+					source:'button3.png'
+					on_press:root.stop()
+			BoxLayout:
