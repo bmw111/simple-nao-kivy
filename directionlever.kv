@@ -5,23 +5,19 @@ MyWidget:
 			rgb:87/255.,94/255.,93/255.,1
 			#rgb:1,1,1,1
 		Rectangle:
-			source:'background.png'
+			source:'data/images/background.png'
 			size:root.size
 			pos:root.pos
 	ActionBar:
 		pos_hint: {'top':1}
 		size_hint_y: .2
+		#background_color:0,0,0.,1
 		ActionView:
 			use_separator: True
 			ActionPrevious:
-				title: 'NAO'
 				with_previous: False
-				app_icon:'icon.png'
+				app_icon:'data/images/nao.png'
 			ActionOverflow:
-			ActionButton:
-				#text: 'Btn0'
-				icon: 'atlas://data/images/defaulttheme/audio-volume-muted'	
-				on_press:root.voice('00')
 			ActionButton:
 				#text: 'Btn0'
 				icon: 'atlas://data/images/defaulttheme/audio-volume-low'
@@ -30,8 +26,8 @@ MyWidget:
 				#text: 'Btn0'
 				icon: 'atlas://data/images/defaulttheme/audio-volume-high'
 				on_press:root.voice('02')
-
-
+			
+			
 	BoxLayout:
 		
 	BoxLayout:
@@ -48,12 +44,12 @@ MyWidget:
 			BoxLayout:
 			#size_hint:.5,1
 				IconButton:
-					source:'button1.png'
+					source:'data/images/button1.png'
 					on_press:root.say()
 				IconButton:
-					source:'button2.png'
+					source:'data/images/button2.png'
 					on_press:root.dance()
 				IconButton:
-					source:'button3.png'
+					source:'data/images/button3.png'
 					on_press:root.stop()
 			BoxLayout:

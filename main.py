@@ -42,7 +42,7 @@ class MyWidget(BoxLayout):
 		
 class MyDirectionlever(Widget):
 	widget = MyWidget()
-	padding = NumericProperty(50) #方向距离侧边的距离
+	padding = NumericProperty(60) #方向距离侧边的距离
 	ball_x = NumericProperty(0)  
 	ball_y = NumericProperty(0)
 	circle_x = NumericProperty(0)
@@ -56,7 +56,7 @@ class MyDirectionlever(Widget):
 	move_time = NumericProperty(0)
 	def __init__(self, **kwargs):
 		super(MyDirectionlever, self).__init__(**kwargs)
-		self.ball_texture = CoreImage('ball.png').texture
+		self.ball_texture = CoreImage('data/images/ball.png').texture
 		self.resize(self,self.size)
 		
 	def resize(self,ins,args):
@@ -72,7 +72,7 @@ class MyDirectionlever(Widget):
 			Color(1,1,1,1)
 			#Line(circle=(pos, pos, pos-10),width=10)
 			#Line(circle=(size,size,self.ball_r*2),width = 1)
-			Rectangle(pos=[self.padding,self.padding],source='bbb.png',size=[self.circle_r*2,self.circle_r*2])
+			Rectangle(pos=[self.padding,self.padding],source='data/images/bbb.png',size=[self.circle_r*2,self.circle_r*2])
 	on_pos = resize
 	on_size = resize
 	
@@ -120,7 +120,8 @@ class IconButton(ButtonBehavior, Image):
 
 class DirectionleverApp(App):
 	def build(self):
-		LabelBase.register('Roboto','DroidSansFallback.ttf')
+		self.icon = 'data/images/nao.png'
+		LabelBase.register('Roboto','data/ttf/DroidSansFallback.ttf')
 	
 if __name__=='__main__':
     DirectionleverApp().run()
