@@ -1,0 +1,14 @@
+--dist_name py2dist
+--android_api 19
+--sdk_dir /home/kivydev/andr/android-sdk-linux
+--ndk_dir /home/kivydev/andr/android-ndk-r10e
+--requirements kivy,sdl2,python2
+--package org.nao.mycontrol
+--name NAO
+--version 1.0
+--orientation landscape
+--icon ./data/images/nao.png
+--permission INTERNET
+--presplash ./data/images/presplash.png
+--private .
+--bootstrap sdl2

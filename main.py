@@ -15,8 +15,7 @@ from kivy.graphics import Color,Line,Rectangle
 from kivy.vector import Vector
 import socket
 from kivy.core.image import Image as CoreImage
-import threading
-import sqlite3
+from kivy.storage.jsonstore import JsonStore
 
 class MyScreenManager(ScreenManager):
 	def __init__(self,*args, **kwargs):
@@ -44,6 +43,7 @@ class SayScreen(Screen):
 	say_text_list = ListProperty([])
 	def __init__(self,*args, **kwargs):
 		super(SayScreen,self).__init__(*args, **kwargs)
+		self.txt_namelist= ['txt1','txt2','txt3','txt4']
 		self.updata_say_text()
 		self.get_layout()
 	def get_layout(self):
@@ -57,30 +57,24 @@ class SayScreen(Screen):
 		layout.add_widget(layout_2)
 		#print self.direct.say_text_list
 		
-		text1 = self.say_text_list[0][1].encode('utf-8')
+		text1 = self.say_text_list[0]
 		layout.add_widget(Button(background_color=[0,0,1,1],text=text1,on_press=lambda x:cli.say(text1)))
-		text2 = self.say_text_list[1][1].encode('utf-8')
+		text2 = self.say_text_list[1]
 		layout.add_widget(Button(background_color=[0,0,1,1],text=text2,on_press=lambda x:cli.say(text2)))
-		text3 = self.say_text_list[2][1].encode('utf-8')
+		text3 = self.say_text_list[2]#encode('utf-8')
 		layout.add_widget(Button(background_color=[0,0,1,1],text=text3,on_press=lambda x:cli.say(text3)))
-		text4 = self.say_text_list[3][1].encode('utf-8')
+		text4 = self.say_text_list[3]#encode('utf-8')
 		layout.add_widget(Button(background_color=[0,0,1,1],text=text4,on_press=lambda x:cli.say(text4)))
 
 		self.add_widget(layout)
 	
 	def updata_say_text(self):
 		self.text_list = []
-		conn = sqlite3.connect('text.db')
-		cu = conn.cursor()
-		get_text_sql = '''SELECT * FROM tts_text'''
-		cu.execute(get_text_sql)
-		text_values = cu.fetchall()
-		for text in text_values:
-			self.text_list.append(text)
-		#print say_text_list
+		store = JsonStore('tts.json')
+		for i in range(4):
+			self.text_list.append(store.get('text')[self.txt_namelist[i]].encode('utf-8'))
 		self.say_text_list = self.text_list
-		conn.commit()
-		cu.close()
+		
 
 class DanceScreen(Screen):
     pass
@@ -92,28 +86,16 @@ class EditScreen(Screen):
 		pass
 		#MyScreenManager().updata_say_screen()
 	def updata_say_text_list(self,text_list):
-		data = []
-		conn = sqlite3.connect('text.db')
-		cu = conn.cursor()
-		update_sql = 'UPDATE tts_text SET text = ? WHERE id = ? '
-		for i in range(4):
-			data.append((text_list[i],i+1))
-			cu.execute(update_sql,data[i])
-		conn.commit()
-		cu.close()
-		#self.sm.updata_say_screen()
-		#updata_text_sql
+		store = JsonStore('tts.json')
+		store.put('text',txt1=text_list[0],txt2=text_list[1],txt3=text_list[2],txt4=text_list[3])
 		
 class EmailScreen(Screen):
 	pass
 
-class MyUdpClient(threading.Thread):
+class MyUdpClient():
 	address = ('<broadcast>', 11000)  
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)  
-	def __init__(self,*args, **kwargs):
-		super(MyUdpClient,self).__init__(*args, **kwargs)
-		pass
 	def sengmsg(self,operation,text):
 		msg = operation+text
 		print msg
@@ -217,36 +199,25 @@ class DirectionleverApp(App):
 	#os.chdir(sys.path[0])
 	cli=MyUdpClient()
 	say_text_list = ListProperty([])
+	store = JsonStore('tts.json')
+	txt_namelist= ['txt1','txt2','txt3','txt4']
+	default_text_list=['你好','你吃饭了吗','欢迎光临','下午好']
 	text_list = []
-	conn = sqlite3.connect('text.db')
-	cu = conn.cursor()
-	get_text_sql = '''SELECT * FROM tts_text'''
-	cu.execute(get_text_sql)
-	text_values = cu.fetchall()
-	for text in text_values:
-		text_list.append(text)
+	
+	if store.exists('text'):
+		for i in range(4):
+			text_list.append(store.get('text')[txt_namelist[i]].encode('utf-8'))
+	else:
+		store.put('text',txt1=default_text_list[0],txt2=default_text_list[1],txt3=default_text_list[2],txt4=default_text_list[3])
+		text_list = default_text_list
 	say_text_list = text_list
-	#print say_text_list
-	conn.commit()
-	cu.close()
 	def build(self):
 		self.icon = 'data/images/nao.png'
 		WindowBase.softinput_mode='below_target'
 		LabelBase.register('Roboto','data/ttf/DroidSansFallback.ttf')
 		return MyScreenManager()
 	def updata_say_text(self):
-		self.text_list = []
-		conn = sqlite3.connect('text.db')
-		cu = conn.cursor()
-		get_text_sql = '''SELECT * FROM tts_text'''
-		cu.execute(get_text_sql)
-		text_values = cu.fetchall()
-		for text in text_values:
-			self.text_list.append(text)
-		#print say_text_list
-		self.say_text_list = self.text_list
-		conn.commit()
-		cu.close()
+		
 		print '123'
 		print self.say_text_list
 if __name__=='__main__':
