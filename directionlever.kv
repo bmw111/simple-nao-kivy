@@ -7,7 +7,7 @@
 		ActionPrevious:
 			#title:'move'
 			with_previous: True
-			app_icon:'data/images/nao.png'
+			app_icon:'nao.png'
 			on_press:app.root.current = 'menu'
 		ActionOverflow:
 		ActionButton:
@@ -27,7 +27,7 @@
 			rgb:87/255.,94/255.,93/255.,1
 			#rgb:1,1,1,1
 		Rectangle:
-			source:'data/images/background.png'
+			source:'background.png'
 			size:root.size
 			pos:root.pos
 	ActionBar:
@@ -52,16 +52,16 @@
 	BoxLayout:
 		pos_hint: {'top':.8}
 		IconButton:
-			source:'data/images/move.png'
+			source:'move.png'
 			on_press:root.manager.current = 'move'
 		IconButton:
-			source:'data/images/say.png'
+			source:'say.png'
 			on_press:root.manager.current = 'say'
 		IconButton:
-			source:'data/images/dance.png'
+			source:'dance.png'
 			on_press:root.manager.current = 'dance'
 		IconButton:
-			source:'data/images/email.png'
+			source:'email.png'
 			on_press:root.manager.current = 'email'
 	
 			
@@ -73,7 +73,7 @@
 			rgb:87/255.,94/255.,93/255.,1
 			rgb:1,1,1,1
 		Rectangle:
-			source:'data/images/nao_background_1.png'
+			source:'nao_background_1.png'
 			size:self.size
 			pos:self.pos
 	MyActionBar:
@@ -108,7 +108,7 @@
 			#rgb:87/255.,94/255.,93/255.,1
 			rgb:1,1,1,1
 		Rectangle:
-			source:'data/images/nao_background_2.png'
+			source:'nao_background_2.png'
 			size:root.size
 			pos:root.pos
 	ActionBar:
@@ -119,7 +119,7 @@
 			ActionPrevious:
 				#title:'move'
 				with_previous: True
-				app_icon:'data/images/nao.png'
+				app_icon:'nao.png'
 				on_press:app.root.current = 'menu'
 			ActionOverflow:
 			ActionButton:
@@ -170,16 +170,16 @@
 		size_hint: .6,.4
 		TextInput:
 			id:txt1
-			text:app.say_text_list[0][1].encode('utf-8')
+			text:app.say_text_list[0]
 		TextInput:
 			id:txt2
-			text:app.say_text_list[1][1].encode('utf-8')
+			text:app.say_text_list[1]
 		TextInput:
 			id:txt3
-			text:app.say_text_list[2][1].encode('utf-8')
+			text:app.say_text_list[2]
 		TextInput:
 			id:txt4
-			text:app.say_text_list[3][1].encode('utf-8')
+			text:app.say_text_list[3]
 		
 <DanceScreen>:
 	name:'dance'
@@ -220,7 +220,7 @@
 			text:'上海舞'
 			on_press:app.cli.dance(self.text)
 		Button:
-			background_normal:'data/images/stop.png'
+			background_normal:'stop.png'
 			on_press:app.cli.stop()
 		Button:
 			background_color:0,0,1,1
@@ -250,7 +250,7 @@
 			rgb:87/255.,94/255.,93/255.,1
 			#rgb:1,1,1,1
 		Rectangle:
-			#source:'data/images/background.png'
+			#source:'background.png'
 			size:root.size
 			pos:root.pos
 	MyActionBar:
@@ -259,9 +259,9 @@
 	BoxLayout:
 		pos_hint:{'x': 0,'y':0}
 		size_hint:.5,.9
-		RstDocument:
-			text:"\n杭州赫瓦机器人技术开发有限公司\n\n地址：杭州市江干区金沙大道1808号瑞纺商贸城瑞纺宾馆1楼\n\n电话：0571-85819115/85812165/85812075\n\n手机：18658835508\n\n传真：0571-85819219\n\n邮箱：hwmachine@163.com"
+		#RstDocument:
+			#text:"\n杭州赫瓦机器人技术开发有限公司\n\n地址：杭州市江干区金沙大道1808号瑞纺商贸城瑞纺宾馆1楼\n\n电话：0571-85819115/85812165/85812075\n\n手机：18658835508\n\n传真：0571-85819219\n\n邮箱：hwmachine@163.com"
 	Image:
 		pos_hint:{'x': .5,'y':0}
 		size_hint:.5,.9
-		source:'data/images/qrcode.png'
+		source:'qrcode.png'

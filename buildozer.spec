@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = direction with kivy
+title = hello nao
 
 # (str) Package name
-package.name = directionlever
+package.name = ort.nao.hello
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
@@ -36,7 +36,7 @@ version = 1.0
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy,python2,sqlite3
+requirements = kivy,python2
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
